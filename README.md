@@ -1,107 +1,181 @@
-# SOS GUARDIAN
-## Intelligent Multi-Modal Emergency Detection and Response System
+# 🛡️ SOS Guardian – Silent Emergency Alert System
 
-SOS Guardian is an intelligent web-based personal emergency protection system engineered for high-reliability personal safety.
+\<p align="center">   \<strong>Smart Emergency Detection & Silent Alert Platform\</strong> \</p>
 
----
+\<p align="center">   \<a href="[https://sos-guardian-1hh5.onrender.com](https://sos-guardian-1hh5.onrender.com)">     🌐 Live Web Application   \</a> \</p>
 
-### Key Capabilities
-
-1. **Multi-Modal Activation**:
-   - **Manual SOS**: High-impact emergency button with tactile feedback and safety window.
-   - **AI Hand Gesture Recognition**: Real-time MediaPipe Tasks Vision Hand Landmarker. Open-palm pose classification with multi-frame consistency filtering (8 frames) to prevent false positives. Runs 100% locally in the browser with zero video uploaded to servers.
-   - **Voice-Based Emergency Detection**: Browser Web Speech API listening for emergency phrases (*"SOS"*, *"Help me"*, *"Emergency"*).
-2. **Common SOS Engine**:
-   - Unified countdown pipeline (`activateSOS('manual' | 'gesture' | 'voice')`).
-   - 5-Second safety countdown window with instant cancel button and Web Audio synthesizer tones.
-   - Protection against accidental duplicate dispatches (8-10 second cool-down).
-3. **GPS Location Module**:
-   - Browser Geolocation API with high-accuracy GPS coordinates.
-   - Automatically generates standard Google Maps emergency URL: `https://www.google.com/maps?q=LAT,LNG`.
-4. **Automatic MSG91 Flow SMS Integration**:
-   - Official MSG91 Flow REST API (`https://control.msg91.com/api/v5/flow/`).
-   - Compliant with Indian TRAI DLT registered templates and variable mapping (`user_name`, `trigger`, `time`, `location_url`).
-   - Automated delivery status recording (`Pending`, `Accepted`, `Delivered`, `Failed`).
-   - Delivery Report (DLR) webhook endpoint at `/api/webhooks/msg91`.
-5. **Full-Stack Architecture**:
-   - Node.js + Express + SQLite engine running the live interactive application.
-   - Modular Python Flask + SQLAlchemy backend codebase included in `app.py`, `models/`, `routes/`, `services/`, and `tests/`.
+\<p align="center">   A smart emergency alert system designed to help people request assistance silently during dangerous situations. \</p>
 
 ---
 
-### Folder Structure
+## 📌 About the Project
 
+**SOS Guardian** is an intelligent emergency alert system designed to provide quick assistance during dangerous situations when a person cannot speak or make a phone call.
+
+The system allows users to trigger emergency alerts manually or through a predefined hand gesture. It captures the user's GPS location and shares emergency information with registered trusted contacts.
+
+The main goal is to improve personal safety through silent communication, location tracking, and faster emergency response.
+
+## 🎯 Problem Statement
+
+During emergencies such as accidents, medical situations, harassment, or personal safety threats, people may be unable to call or communicate openly for help.
+
+Traditional emergency systems often require users to manually make calls or send messages.
+
+Therefore, a smart, silent, and quick emergency alert system is needed to communicate danger and share the user's location.
+
+## 💡 Proposed Solution
+
+SOS Guardian provides an intelligent emergency communication platform with:
+
+- Manual SOS activation.
+- Hand gesture-based emergency activation.
+- GPS-based location detection.
+- Emergency alerts to trusted contacts.
+- Live location sharing.
+- Emergency event recording.
+- Faster communication during critical situations.
+
+## ✨ Key Features
+
+| Feature                    | Description                                           |
+| -------------------------- | ----------------------------------------------------- |
+| 🔐 User Authentication     | Secure login and registration                         |
+| 🆘 Manual SOS              | Activate an emergency alert manually                  |
+| ✋ Hand Gesture Detection   | Trigger an alert using a predefined Open Palm gesture |
+| 📍 GPS Location            | Obtain the user's current location                    |
+| 📩 Emergency Notifications | Share alerts with trusted contacts                    |
+| 🗺️ Location Sharing       | Generate a Google Maps location link                  |
+| 📡 Live Location           | Support location sharing during emergencies           |
+| 📋 SOS Records             | Record emergency events                               |
+
+## ⚙️ How It Works
+
+1. **User Registration:** Create an account and log in.
+2. **Emergency Setup:** Configure trusted emergency contacts.
+3. **Permission Access:** Allow camera and location permissions.
+4. **Activate SOS:** Use the manual SOS button or predefined hand gesture.
+5. **Location Detection:** Obtain GPS coordinates.
+6. **Alert Generation:** Create an emergency notification.
+7. **Contact Notification:** Share emergency information and location.
+8. **Emergency Response:** Trusted contacts can use the shared location to assist.
+
+## 🔄 System Workflow
+
+```text
+       USER
+         |
+         v
+   LOGIN / SIGNUP
+         |
+         v
+  EMERGENCY SETUP
+         |
+         v
+      DASHBOARD
+         |
+    +----+----+
+    |         |
+    v         v
+ MANUAL SOS  HAND GESTURE
+    |         |
+    +----+----+
+         |
+         v
+    SOS ENGINE
+         |
+         v
+   GET GPS LOCATION
+         |
+         v
+  CREATE MAPS LINK
+         |
+         v
+  RECORD SOS EVENT
+         |
+         v
+ NOTIFY TRUSTED CONTACTS
+         |
+         v
+   EMERGENCY ALERT
 ```
-SOS-GUARDIAN/
-├── app.py                      # Flask backend entrypoint & DB initialization
-├── config.py                   # Flask configuration & environment loader
-├── requirements.txt            # Python dependencies (Flask, SQLAlchemy, requests)
-├── server.ts                   # Full-stack Node/Express/SQLite dev & prod server
-├── instance/
-│   └── sos_guardian.db         # SQLite persistent database (WAL mode)
-├── models/
-│   ├── __init__.py             # SQLAlchemy instance export
-│   ├── user.py                 # User model with salted password hashing
-│   ├── contact.py              # Emergency contact model with consent flag
-│   ├── sos.py                  # SOS event model with coordinates & status
-│   ├── notification.py         # Notification model tracking MSG91 DLR
-│   └── settings.py             # User detection settings & thresholds
-├── routes/
-│   ├── __init__.py
-│   ├── auth.py                 # Registration, Login, Logout, Profile
-│   ├── contacts.py             # Full CRUD for emergency contacts
-│   ├── sos.py                  # SOS event creation & history
-│   ├── notifications.py        # Test notification endpoint
-│   ├── settings.py             # Configuration update
-│   └── webhooks.py             # MSG91 DLR status callback webhook
-├── services/
-│   ├── __init__.py
-│   └── sms_service.py          # MSG91 Flow API client & phone validation
-├── tests/
-│   └── test_sos.py             # 18-step integration test suite
-├── src/
-│   ├── types/                  # TypeScript interfaces
-│   ├── services/
-│   │   ├── api.ts              # REST API client
-│   │   ├── audio.ts            # Web Audio API sound synthesizer
-│   │   ├── emergency.ts        # Common SOS Engine
-│   │   └── location.ts         # Geolocation GPS handler
-│   ├── components/             # React UI Components
-│   └── App.tsx                 # Main Application Container
-└── .env.example                # Environment variables template
+
+## 🛠️ Technologies Used
+
+Update this section with the exact technologies used in your implementation.
+
+- **Frontend:** [Add your frontend technologies]
+- **Backend:** [Add your backend technologies]
+- **Database:** [Add your database]
+- **Location Services:** GPS / Geolocation
+- **Gesture Recognition:** Camera-based hand gesture detection
+- **Deployment:** Render
+
+## 🌐 Live Application
+
+**Try SOS Guardian here:**
+
+👉 [https://sos-guardian-1hh5.onrender.com](https://sos-guardian-1hh5.onrender.com)
+
+## 📸 Screenshots
+
+Add your project screenshots below to demonstrate the application.
+
+```text
+screenshots/
+├── login.png
+├── register.png
+├── dashboard.png
+├── manual-sos.png
+└── gesture-detection.png
 ```
+
+Example:
+
+```markdown
+![Login Page](screenshots/login.png)
+
+![Dashboard](screenshots/dashboard.png)
+
+![SOS Activation](screenshots/manual-sos.png)
+```
+
+## 🚀 Future Enhancements
+
+- AI-based accident detection.
+- Voice-assisted emergency activation.
+- Automatic emergency severity assessment.
+- Nearby hospital and police station identification.
+- Emergency service integration.
+- Improved gesture recognition.
+- Multi-language support.
+- Intelligent emergency response recommendations.
+
+## ⚠️ Limitations
+
+- GPS accuracy depends on device and network conditions.
+- Internet connectivity may affect alert delivery.
+- Gesture recognition depends on camera quality and lighting.
+- False emergency triggers may occur.
+- Emergency notifications depend on the configured communication service.
+
+**Note:** SOS Guardian is an assistance tool and should not replace official emergency services.
+
+## 🎓 Project Objective
+
+To develop a smart, reliable, and user-friendly emergency alert platform that helps people communicate danger silently and share their location quickly during critical situations.
+
+## 👨‍💻 Developer
+
+**Balakrishna Malage**
+
+Engineering Student | AI & GenAI Enthusiast
+
+- GitHub: [Balakrishna6669](https://github.com/Balakrishna6669)
+- Project: SOS Guardian – Silent Emergency Alert System
 
 ---
 
-### MSG91 & Indian TRAI DLT Configuration
+\<p align="center">   ⭐ If you find this project useful, consider giving it a star! \</p>
 
-To send live SMS in India:
-1. Register on an approved TRAI DLT portal (VilPower, Jio DLT, Airtel DLT) and obtain a **Principal Entity ID**.
-2. Register an approved 6-character **Sender Header** (e.g., `SOSGRD`) under *Service Implicit*.
-3. Register the Content Template:
-   ```
-   SOS GUARDIAN - EMERGENCY ALERT: An emergency has been activated by {#var#}. Trigger: {#var#}. Time: {#var#}. Location: {#var#}. Please respond immediately.
-   ```
-4. Set credentials in `.env`:
-   ```bash
-   MSG91_AUTH_KEY="your_msg91_authkey"
-   MSG91_TEMPLATE_ID="your_approved_flow_template_id"
-   SMS_ENABLED=true
-   ```
-
-*When `SMS_ENABLED=false` or no credentials are set, the system safely operates in simulation/test mode, recording full mock responses without sending unintended real SMS.*
-
----
-
-### Running the Python Backend
-
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
-
-# 2. Run automated tests
-python -m unittest tests/test_sos.py
-
-# 3. Start Flask server
-python app.py
-```
+\<p align="center">   \<strong>Technology for Safety. Innovation for Life. 🛡️\</strong> \</p>
