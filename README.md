@@ -186,6 +186,10 @@ Engineering Student | AI & GenAI Enthusiast
 
 ---
 
-\<p align="center">   ⭐ If you find this project useful, consider giving it a star! \</p>
+<p align="center">
+  ⭐ If you find this project useful, consider giving it a star!
+</p>
 
-\<p align="center">   \<strong>Technology for Safety. Innovation for Life. 🛡️\</strong> \</p>
+<p align="center">
+  <strong>Technology for Safety. Innovation for Life. 🛡️</strong>
+</p>
