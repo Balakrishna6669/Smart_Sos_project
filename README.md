@@ -1,12 +1,22 @@
+
 # 🛡️ SOS Guardian – Silent Emergency Alert System
 
-\<p align="center">   \<strong>Smart Emergency Detection & Silent Alert Platform\</strong> \</p>
+<p align="center">
+  <strong>Smart Emergency Detection & Silent Alert Platform</strong>
+</p>
 
-\<p align="center">   \<a href="[https://sos-guardian-1hh5.onrender.com](https://sos-guardian-1hh5.onrender.com)">     🌐 Live Web Application   \</a> \</p>
+<p align="center">
+  <a href="https://sos-guardian-1hh5.onrender.com">
+    🌐 Live Web Application
+  </a>
+</p>
 
-\<p align="center">   A smart emergency alert system designed to help people request assistance silently during dangerous situations. \</p>
+<p align="center">
+  A smart emergency alert system designed to help people request assistance silently during dangerous situations.
+</p>
 
 ---
+
 
 ## 📌 About the Project
 
