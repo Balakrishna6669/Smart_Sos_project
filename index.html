@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOS GUARDIAN – Intelligent Emergency Detection & Response</title>
+    <meta name="description" content="Intelligent Multi-Modal Emergency Detection and Response System with Manual SOS, MediaPipe Hand Gesture, Voice Detection, Geolocation, and MSG91 SMS Alerts." />
+    <meta property="og:title" content="SOS GUARDIAN – Intelligent Emergency Detection & Response" />
+    <meta property="og:description" content="Intelligent Multi-Modal Emergency Detection and Response System with Manual SOS, MediaPipe Hand Gesture, Voice Detection, Geolocation, and MSG91 SMS Alerts." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        // Intercept Vite HMR WebSocket to completely prevent 'WebSocket closed without opened' in Cloud Run preview
+        var OriginalWebSocket = window.WebSocket;
+        if (OriginalWebSocket) {
+          window.WebSocket = function (url, protocols) {
+            if (protocols === 'vite-hmr' || (typeof url === 'string' && (url.indexOf('vite-hmr') !== -1 || url.indexOf('token=') !== -1))) {
+              var listeners = {};
+              return {
+                readyState: 1, // OPEN
+                OPEN: 1,
+                CLOSED: 3,
+                CLOSING: 2,
+                CONNECTING: 0,
+                send: function () {},
+                close: function () {},
+                addEventListener: function (event, fn) {
+                  listeners[event] = listeners[event] || [];
+                  listeners[event].push(fn);
+                  if (event === 'open') {
+                    setTimeout(function () {
+                      try { fn({ type: 'open' }); } catch (err) {}
+                    }, 0);
+                  }
+                },
+                removeEventListener: function (event, fn) {
+                  if (listeners[event]) {
+                    listeners[event] = listeners[event].filter(function (cb) { return cb !== fn; });
+                  }
+                }
+              };
+            }
+            return new OriginalWebSocket(url, protocols);
+          };
+          window.WebSocket.prototype = OriginalWebSocket.prototype;
+          window.WebSocket.OPEN = 1;
+          window.WebSocket.CLOSED = 3;
+          window.WebSocket.CLOSING = 2;
+          window.WebSocket.CONNECTING = 0;
+        }
+
+        // Capture-phase suppression for any WebSocket or Vite client errors
+        function suppressViteError(e) {
+          var msg = String(e && (e.message || (e.reason && e.reason.message) || e.reason || ''));
+          var file = String(e && e.filename || '');
+          if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('vite') !== -1 || file.indexOf('@vite/client') !== -1) {
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopPropagation) e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            return true;
+          }
+        }
+
+        window.addEventListener('unhandledrejection', suppressViteError, true);
+        window.addEventListener('error', suppressViteError, true);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

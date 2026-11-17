@@ -1,0 +1,10 @@
+{
+  "name": "SOS GUARDIAN",
+  "description": "Intelligent Multi-Modal Emergency Detection and Response System with Manual SOS, MediaPipe Hand Gesture, Voice Detection, Geolocation, and MSG91 SMS Alerts.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
